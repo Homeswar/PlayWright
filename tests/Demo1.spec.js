@@ -54,9 +54,27 @@ test('Demo Project',async function({browser})
    expect(page.locator(".hero-primary")).toHaveText(" Thankyou for the order. ");
    const orderId = await page.locator(".em-spacer-1 .ng-star-inserted").textContent();
    console.log(orderId);
+
+
    await page.locator("li [routerlink*='myorders']").click();
+   await page.locator("tbody").waitFor();
    const row = await page.locator("tbody tr");
-   
+   for(let i=0;i<await row.count();i++)
+   {
+      const text = await row.nth(i).locator("th").textContent();
+      if(orderId.includes(text))
+      {
+          row.nth(i).locator("button").first().click();
+         break;
+      }
+   }
+   const orID = await page.locator(".col-text").textContent();
+   expect(orderId.includes(orID)).toBeTruthy();
+
+
+
+
+
 
 
     await page.pause();
