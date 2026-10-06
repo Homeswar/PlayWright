@@ -26,7 +26,7 @@ test('Demo Project',async function({browser})
    await page.locator("[class='input txt']").last().fill("GALLI KA");
    await page.locator("[placeholder*='Country']").pressSequentially("a",{delay:150});
    
-   const dropdown = await page.locator(".ta-results");
+   const dropdown = page.locator(".ta-results");
    await dropdown.waitFor();
    const optionsCount = await dropdown.locator("button").count();
    for (let i =0;i<=optionsCount;i++)
